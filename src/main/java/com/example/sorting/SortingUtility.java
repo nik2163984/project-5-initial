@@ -1,5 +1,7 @@
 package com.example.sorting;
 
+import static jdk.nashorn.internal.objects.ArrayBufferView.length;
+
 public class SortingUtility {
 
     /**
@@ -24,8 +26,21 @@ public class SortingUtility {
      */
     public static <T extends Comparable<T>> void gnomeSort(T[] data) {
 
-        // TODO implement pseudocode above
+        int pos = 0;
+        T key = data[pos];
 
+        while (pos < data.length) {
+            if ((pos == 0) || data[pos - 1].compareTo(key) <= 0) {
+                pos += 1;
+                if (pos < data.length) {
+                    key = data[pos];
+                }
+            } else {
+                swap(data, pos, pos - 1);
+                pos -= 1;
+                key = data[pos];
+            }
+        }
     }
 
     /**
@@ -45,8 +60,9 @@ public class SortingUtility {
      */
     public static <T extends Comparable<T>> void gnomierSort(T[] data) {
 
-        // TODO implement pseudocode above
-
+        for (int pos = 1; pos < data.length;pos++) {
+            gnomierSort(data, pos);
+        }
     }
 
     /**
@@ -67,7 +83,13 @@ public class SortingUtility {
      */
     private static <T extends Comparable<T>> void gnomierSort(T[] data, int upperBound) {
 
-        // TODO implement pseudocode above
+        int pos = upperBound;
+        T key = data[pos];
+
+        while (pos > 0 && data[pos - 1].compareTo(key) > 0) {
+            swap(data, pos - 1, pos);
+            pos -= 1;
+        }
     }
 
     private static <T extends Comparable<T>> void swap(T[] data, int index1, int index2) {
